@@ -26,6 +26,8 @@ use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedUpdateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Traits\Auth\AuthUserTrait;
 use OrangeHRM\Core\Traits\Service\ConfigServiceTrait;
@@ -36,19 +38,20 @@ use OrangeHRM\Pim\Traits\Service\EmployeeServiceTrait;
 
 class MenuItemAPI extends Endpoint implements ResourceEndpoint
 {
-    use UserRoleManagerTrait;
     use AuthUserTrait;
-    use LeaveConfigServiceTrait;
-    use EmployeeServiceTrait;
     use ConfigServiceTrait;
+    use EmployeeServiceTrait;
+    use LeaveConfigServiceTrait;
     use ModuleServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedUpdateEndpointTrait;
+    use UserRoleManagerTrait;
 
     public const META_PARAMETER_IS_LEAVE_PERIOD_DEFINED =  'isLeavePeriodDefined';
     public const META_PARAMETER_IS_TIMESHEET_PERIOD_DEFINED = 'isTimesheetPeriodDefined';
 
     private bool $timeModuleEnabled;
     private bool $leaveModuleEnabled;
-
 
     /**
      * @var array
@@ -203,37 +206,5 @@ class MenuItemAPI extends Endpoint implements ResourceEndpoint
         $paramRules = new ParamRuleCollection();
         $paramRules->addExcludedParamKey(CommonParams::PARAMETER_ID);
         return $paramRules;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForUpdate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

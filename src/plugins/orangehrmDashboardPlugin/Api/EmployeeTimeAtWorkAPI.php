@@ -28,6 +28,8 @@ use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedUpdateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -41,6 +43,8 @@ class EmployeeTimeAtWorkAPI extends Endpoint implements ResourceEndpoint
     use AuthUserTrait;
     use DateTimeHelperTrait;
     use EmployeeTimeAtWorkServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedUpdateEndpointTrait;
 
     public const PARAMETER_CURRENT_DATE = 'currentDate';
     public const PARAMETER_CURRENT_TIME = 'currentTime';
@@ -249,37 +253,5 @@ class EmployeeTimeAtWorkAPI extends Endpoint implements ResourceEndpoint
         );
         $paramRules->addExcludedParamKey(CommonParams::PARAMETER_ID);
         return $paramRules;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForUpdate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

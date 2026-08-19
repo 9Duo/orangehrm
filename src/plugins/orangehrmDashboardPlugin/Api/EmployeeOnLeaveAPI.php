@@ -26,6 +26,8 @@ use OrangeHRM\Core\Api\V2\EndpointCollectionResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedCreateEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -35,19 +37,21 @@ use OrangeHRM\Core\Traits\Service\ConfigServiceTrait;
 use OrangeHRM\Core\Traits\Service\DateTimeHelperTrait;
 use OrangeHRM\Core\Traits\UserRoleManagerTrait;
 use OrangeHRM\Dashboard\Api\Model\EmployeesOnLeaveListModel;
-use OrangeHRM\Entity\Employee;
-use OrangeHRM\Leave\Traits\Service\LeaveConfigServiceTrait;
 use OrangeHRM\Dashboard\Dto\EmployeeOnLeaveSearchFilterParams;
 use OrangeHRM\Dashboard\Traits\Service\EmployeeOnLeaveServiceTrait;
+use OrangeHRM\Entity\Employee;
+use OrangeHRM\Leave\Traits\Service\LeaveConfigServiceTrait;
 
 class EmployeeOnLeaveAPI extends Endpoint implements CollectionEndpoint
 {
-    use DateTimeHelperTrait;
-    use LeaveConfigServiceTrait;
-    use EmployeeOnLeaveServiceTrait;
-    use ConfigServiceTrait;
-    use UserRoleManagerTrait;
     use AuthUserTrait;
+    use ConfigServiceTrait;
+    use DateTimeHelperTrait;
+    use EmployeeOnLeaveServiceTrait;
+    use LeaveConfigServiceTrait;
+    use NotImplementedCreateEndpointTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use UserRoleManagerTrait;
 
     public const PARAMETER_DATE = 'date';
     public const META_PARAMETER_LEAVE_PERIOD_DEFINED =  'leavePeriodDefined';
@@ -138,37 +142,5 @@ class EmployeeOnLeaveAPI extends Endpoint implements CollectionEndpoint
             ),
             ...$this->getSortingAndPaginationParamsRules(EmployeeOnLeaveSearchFilterParams::ALLOWED_SORT_FIELDS),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function create(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForCreate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

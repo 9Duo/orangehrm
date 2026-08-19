@@ -24,6 +24,8 @@ use OrangeHRM\Core\Api\V2\Endpoint;
 use OrangeHRM\Core\Api\V2\EndpointCollectionResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\ParameterBag;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedCreateEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Dashboard\Api\Model\EmployeeDistributionBySubunitModel;
 use OrangeHRM\Dashboard\Traits\Service\ChartServiceTrait;
@@ -31,6 +33,8 @@ use OrangeHRM\Dashboard\Traits\Service\ChartServiceTrait;
 class EmployeeDistributionBySubunitAPI extends Endpoint implements CollectionEndpoint
 {
     use ChartServiceTrait;
+    use NotImplementedCreateEndpointTrait;
+    use NotImplementedDeleteEndpointTrait;
 
     public const PARAMETER_OTHER_EMPLOYEE_COUNT = 'otherEmployeeCount';
     public const PARAMETER_UNASSIGNED_EMPLOYEE_COUNT = 'unassignedEmployeeCount';
@@ -87,37 +91,5 @@ class EmployeeDistributionBySubunitAPI extends Endpoint implements CollectionEnd
     public function getValidationRuleForGetAll(): ParamRuleCollection
     {
         return new ParamRuleCollection();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function create(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForCreate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

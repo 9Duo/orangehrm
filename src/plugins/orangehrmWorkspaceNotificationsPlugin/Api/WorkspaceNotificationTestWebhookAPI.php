@@ -27,21 +27,25 @@ use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\Exception\BadRequestException;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetAllEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
 use OrangeHRM\Core\Api\V2\Validator\Rules;
 use OrangeHRM\Entity\WorkspaceNotificationRegistration;
 use OrangeHRM\WorkspaceNotifications\Service\Webhook\WebhookProviderRegistry;
-use OrangeHRM\WorkspaceNotifications\Traits\Service\WorkspaceNotificationServiceTrait;
-use OrangeHRM\WorkspaceNotifications\Traits\Service\WorkspaceNotificationRegistrationServiceTrait;
 use OrangeHRM\WorkspaceNotifications\Traits\Service\WebhookProviderRegistryTrait;
+use OrangeHRM\WorkspaceNotifications\Traits\Service\WorkspaceNotificationRegistrationServiceTrait;
+use OrangeHRM\WorkspaceNotifications\Traits\Service\WorkspaceNotificationServiceTrait;
 
 class WorkspaceNotificationTestWebhookAPI extends Endpoint implements CollectionEndpoint
 {
-    use WorkspaceNotificationServiceTrait;
-    use WorkspaceNotificationRegistrationServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetAllEndpointTrait;
     use WebhookProviderRegistryTrait;
+    use WorkspaceNotificationRegistrationServiceTrait;
+    use WorkspaceNotificationServiceTrait;
 
     public const PARAMETER_WEBHOOK_URL = 'webhookUrl';
     public const PARAMETER_EVENT_TYPE = 'eventType';
@@ -209,25 +213,5 @@ class WorkspaceNotificationTestWebhookAPI extends Endpoint implements Collection
                 true
             ),
         );
-    }
-
-    public function getAll(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    public function getValidationRuleForGetAll(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

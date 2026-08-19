@@ -25,9 +25,11 @@ use OrangeHRM\Admin\Service\OrganizationService;
 use OrangeHRM\Core\Api\CommonParams;
 use OrangeHRM\Core\Api\V2\CrudEndpoint;
 use OrangeHRM\Core\Api\V2\Endpoint;
-use OrangeHRM\Core\Api\V2\EndpointCollectionResult;
 use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedCreateEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetAllEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -36,6 +38,10 @@ use OrangeHRM\Entity\Organization;
 
 class OrganizationAPI extends Endpoint implements CrudEndpoint
 {
+    use NotImplementedCreateEndpointTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetAllEndpointTrait;
+
     public const PARAMETER_NAME = 'name';
     public const PARAMETER_TAX_ID = 'taxId';
     public const PARAMETER_REGISTRATION_NUMBER = 'registrationNumber';
@@ -143,38 +149,6 @@ class OrganizationAPI extends Endpoint implements CrudEndpoint
                 CommonParams::PARAMETER_ID
             ),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getAll(): EndpointCollectionResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetAll(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function create(): EndpointResourceResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForCreate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**
@@ -384,21 +358,5 @@ class OrganizationAPI extends Endpoint implements CrudEndpoint
         $orgInfo->setStreet2($street2);
         $orgInfo->setNote($note);
         return $this->getOrganizationService()->saveOrganizationGeneralInformation($orgInfo);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResourceResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

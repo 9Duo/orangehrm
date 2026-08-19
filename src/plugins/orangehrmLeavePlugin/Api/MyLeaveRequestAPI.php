@@ -25,6 +25,7 @@ use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -42,6 +43,7 @@ class MyLeaveRequestAPI extends EmployeeLeaveRequestAPI
 {
     use AuthUserTrait;
     use LeaveRequestServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
 
     protected ?LeaveApplicationService $leaveApplicationService = null;
 
@@ -410,21 +412,5 @@ class MyLeaveRequestAPI extends EmployeeLeaveRequestAPI
     public function update(): EndpointResult
     {
         return parent::update();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

@@ -28,6 +28,7 @@ use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -40,6 +41,7 @@ use OrangeHRM\Time\Traits\Service\ProjectServiceTrait;
 
 class CopyProjectActivityAPI extends Endpoint implements CollectionEndpoint
 {
+    use NotImplementedDeleteEndpointTrait;
     use ProjectServiceTrait;
 
     public const PARAMETER_FROM_PROJECT_ID = 'fromProjectId';
@@ -209,22 +211,6 @@ class CopyProjectActivityAPI extends Endpoint implements CollectionEndpoint
             ),
             ...$this->getCommonURLValidationRules()
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**

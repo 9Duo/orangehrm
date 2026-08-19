@@ -19,8 +19,7 @@
 
 namespace OrangeHRM\Admin\Api\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdNameModel;
 use OrangeHRM\Entity\EmploymentStatus;
 
 /**
@@ -31,18 +30,10 @@ use OrangeHRM\Entity\EmploymentStatus;
  *     @OA\Property(property="name", type="string")
  * )
  */
-class EmploymentStatusModel implements Normalizable
+class EmploymentStatusModel extends IdNameModel
 {
-    use ModelTrait;
-
     public function __construct(EmploymentStatus $employmentStatus)
     {
-        $this->setEntity($employmentStatus);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
+        parent::__construct($employmentStatus);
     }
 }

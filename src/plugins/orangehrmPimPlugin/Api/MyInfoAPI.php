@@ -26,21 +26,25 @@ use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedUpdateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
 use OrangeHRM\Core\Api\V2\Validator\Rules;
 use OrangeHRM\Core\Traits\Auth\AuthUserTrait;
 use OrangeHRM\Entity\Employee;
+use OrangeHRM\Pim\Api\Model\EmployeeDetailedModel;
 use OrangeHRM\Pim\Api\Model\EmployeeModel;
 use OrangeHRM\Pim\Api\Model\MyInfoDetailedModel;
-use OrangeHRM\Pim\Api\Model\EmployeeDetailedModel;
 use OrangeHRM\Pim\Traits\Service\EmployeeServiceTrait;
 
 class MyInfoAPI extends Endpoint implements ResourceEndpoint
 {
     use AuthUserTrait;
     use EmployeeServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedUpdateEndpointTrait;
 
     public const FILTER_MODEL = 'model';
     public const MODEL_DEFAULT = 'default';
@@ -128,37 +132,5 @@ class MyInfoAPI extends Endpoint implements ResourceEndpoint
             self::MODEL_DEFAULT
         );
         return self::MODEL_MAP[$model];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForUpdate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

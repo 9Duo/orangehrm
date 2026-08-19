@@ -20,8 +20,7 @@
 namespace OrangeHRM\Admin\Api\Model;
 
 use OrangeHRM\Entity\Language;
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdNameModel;
 
 /**
  * @OA\Schema(
@@ -31,18 +30,10 @@ use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
  *     @OA\Property(property="name", type="string")
  * )
  */
-class LanguageModel implements Normalizable
+class LanguageModel extends IdNameModel
 {
-    use ModelTrait;
-
     public function __construct(Language $language)
     {
-        $this->setEntity($language);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
+        parent::__construct($language);
     }
 }

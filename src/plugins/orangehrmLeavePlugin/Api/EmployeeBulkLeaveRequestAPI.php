@@ -28,6 +28,8 @@ use OrangeHRM\Core\Api\V2\Exception\ForbiddenException;
 use OrangeHRM\Core\Api\V2\Exception\RecordNotFoundException;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetOneEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -43,32 +45,18 @@ use OrangeHRM\ORM\Exception\TransactionException;
 
 class EmployeeBulkLeaveRequestAPI extends Endpoint implements ResourceEndpoint
 {
-    use LeaveRequestParamHelperTrait;
-    use LeaveRequestServiceTrait;
-    use UserRoleManagerTrait;
     use AuthUserTrait;
-    use LeaveRequestPermissionTrait;
     use EntityManagerHelperTrait;
+    use LeaveRequestParamHelperTrait;
+    use LeaveRequestPermissionTrait;
+    use LeaveRequestServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetOneEndpointTrait;
+    use UserRoleManagerTrait;
 
     public const PARAMETER_ACTION = 'action';
     public const PARAMETER_LEAVE_REQUEST_ID = 'leaveRequestId';
     public const PARAMETER_DATA = 'data';
-
-    /**
-     * @inheritDoc
-     */
-    public function getOne(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetOne(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
 
     /**
      * @OA\Put(
@@ -208,21 +196,5 @@ class EmployeeBulkLeaveRequestAPI extends Endpoint implements ResourceEndpoint
                 )
             ),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

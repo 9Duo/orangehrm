@@ -23,11 +23,13 @@ use OrangeHRM\Admin\Dto\AboutOrganization;
 use OrangeHRM\Admin\Service\OrganizationService;
 use OrangeHRM\Config\Config;
 use OrangeHRM\Core\Api\CommonParams;
+use OrangeHRM\Core\Api\Rest\Model\AboutOrganizationModel;
 use OrangeHRM\Core\Api\V2\Endpoint;
 use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
-use OrangeHRM\Core\Api\Rest\Model\AboutOrganizationModel;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedUpdateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Entity\Organization;
@@ -37,6 +39,8 @@ use OrangeHRM\Pim\Traits\Service\EmployeeServiceTrait;
 class AboutOrganizationAPI extends Endpoint implements ResourceEndpoint
 {
     use EmployeeServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedUpdateEndpointTrait;
 
     /**
      * @var null|OrganizationService
@@ -101,37 +105,5 @@ class AboutOrganizationAPI extends Endpoint implements ResourceEndpoint
                 CommonParams::PARAMETER_ID
             ),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForUpdate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

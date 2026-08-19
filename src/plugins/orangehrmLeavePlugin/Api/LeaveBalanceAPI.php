@@ -28,6 +28,8 @@ use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedUpdateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -49,13 +51,15 @@ use OrangeHRM\Pim\Traits\Service\EmployeeServiceTrait;
 
 class LeaveBalanceAPI extends Endpoint implements ResourceEndpoint
 {
-    use LeaveRequestParamHelperTrait;
-    use LeaveEntitlementServiceTrait;
-    use LeaveTypeServiceTrait;
-    use EmployeeServiceTrait;
-    use NormalizerServiceTrait;
-    use DateTimeHelperTrait;
     use AuthUserTrait;
+    use DateTimeHelperTrait;
+    use EmployeeServiceTrait;
+    use LeaveEntitlementServiceTrait;
+    use LeaveRequestParamHelperTrait;
+    use LeaveTypeServiceTrait;
+    use NormalizerServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedUpdateEndpointTrait;
 
     public const PARAMETER_BALANCE = 'balance';
 
@@ -462,37 +466,5 @@ class LeaveBalanceAPI extends Endpoint implements ResourceEndpoint
             );
         }
         return $paramRules;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForUpdate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

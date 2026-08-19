@@ -32,6 +32,8 @@ use OrangeHRM\Core\Api\V2\Exception\InvalidParamException;
 use OrangeHRM\Core\Api\V2\Exception\RecordNotFoundException;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetOneEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -48,9 +50,11 @@ class ClaimRequestActionAPI extends Endpoint implements ResourceEndpoint
 {
     use AuthUserTrait;
     use ClaimRequestAPIHelperTrait;
-    use EntityManagerHelperTrait;
     use ClaimServiceTrait;
     use DateTimeHelperTrait;
+    use EntityManagerHelperTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetOneEndpointTrait;
 
     public const PARAMETER_REQUEST_ID = 'requestId';
     public const PARAMETER_ACTION = 'action';
@@ -172,37 +176,5 @@ class ClaimRequestActionAPI extends Endpoint implements ResourceEndpoint
             }
         }
         throw $this->getInvalidParamException(self::PARAMETER_ACTION);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getOne(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetOne(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

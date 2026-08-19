@@ -19,31 +19,16 @@
 
 namespace OrangeHRM\Admin\Service\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdLabelModel;
 use OrangeHRM\Entity\EmploymentStatus;
 
-class EmploymentStatusModel implements Normalizable
+class EmploymentStatusModel extends IdLabelModel
 {
-    use ModelTrait;
-
     /**
      * @param EmploymentStatus $employmentStatus
      */
     public function __construct(EmploymentStatus $employmentStatus)
     {
-        $this->setEntity($employmentStatus);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
-        $this->setAttributeNames(
-            [
-                'id',
-                'label'
-            ]
-        );
+        parent::__construct($employmentStatus);
     }
 }

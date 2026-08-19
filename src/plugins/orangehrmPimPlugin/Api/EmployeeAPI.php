@@ -28,6 +28,7 @@ use OrangeHRM\Core\Api\V2\Exception\BadRequestException;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedUpdateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -47,6 +48,7 @@ use OrangeHRM\Pim\Traits\Service\EmployeeServiceTrait;
 class EmployeeAPI extends Endpoint implements CrudEndpoint
 {
     use EmployeeServiceTrait;
+    use NotImplementedUpdateEndpointTrait;
     use UserRoleManagerTrait;
 
     public const FILTER_NAME = 'name';
@@ -96,7 +98,6 @@ class EmployeeAPI extends Endpoint implements CrudEndpoint
         }
         return $this->employeePictureService;
     }
-
 
     /**
      * @OA\Get(
@@ -635,22 +636,6 @@ class EmployeeAPI extends Endpoint implements CrudEndpoint
                 true
             ),
         ];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): EndpointResourceResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForUpdate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**

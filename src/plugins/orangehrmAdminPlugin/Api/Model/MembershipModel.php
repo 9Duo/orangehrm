@@ -19,8 +19,7 @@
 
 namespace OrangeHRM\Admin\Api\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdNameModel;
 use OrangeHRM\Entity\Membership;
 
 /**
@@ -31,18 +30,10 @@ use OrangeHRM\Entity\Membership;
  *     @OA\Property(property="name", type="string")
  * )
  */
-class MembershipModel implements Normalizable
+class MembershipModel extends IdNameModel
 {
-    use ModelTrait;
-
     public function __construct(Membership $membership)
     {
-        $this->setEntity($membership);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
+        parent::__construct($membership);
     }
 }

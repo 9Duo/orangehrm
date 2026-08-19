@@ -25,6 +25,9 @@ use OrangeHRM\Core\Api\V2\CrudEndpoint;
 use OrangeHRM\Core\Api\V2\Endpoint;
 use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetAllEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedUpdateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Service\DateTimeHelperService;
 use OrangeHRM\Core\Traits\Auth\AuthUserTrait;
@@ -39,8 +42,11 @@ use Throwable;
 class LDAPUserSyncAPI extends Endpoint implements CrudEndpoint
 {
     use AuthUserTrait;
-    use DateTimeHelperTrait;
     use ConfigServiceTrait;
+    use DateTimeHelperTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetAllEndpointTrait;
+    use NotImplementedUpdateEndpointTrait;
 
     private LDAPSyncService $ldapSyncService;
 
@@ -50,22 +56,6 @@ class LDAPUserSyncAPI extends Endpoint implements CrudEndpoint
     private function getLDAPSyncService(): LDAPSyncService
     {
         return $this->ldapSyncService ??= new LDAPSyncService();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getAll(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetAll(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**
@@ -225,37 +215,5 @@ class LDAPUserSyncAPI extends Endpoint implements CrudEndpoint
         $paramRules = new ParamRuleCollection();
         $paramRules->addExcludedParamKey(CommonParams::PARAMETER_ID);
         return $paramRules;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForUpdate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

@@ -23,6 +23,7 @@ use OrangeHRM\Core\Api\V2\Endpoint;
 use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -34,8 +35,9 @@ use OrangeHRM\Pim\Traits\Service\EmployeeServiceTrait;
 
 class EmployeePersonalDetailAPI extends Endpoint implements ResourceEndpoint
 {
-    use EmployeeServiceTrait;
     use ConfigServiceTrait;
+    use EmployeeServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
 
     public const PARAMETER_EMP_NUMBER = 'empNumber';
     public const PARAMETER_FIRST_NAME = 'firstName';
@@ -390,21 +392,5 @@ class EmployeePersonalDetailAPI extends Endpoint implements ResourceEndpoint
             );
         }
         return new ParamRuleCollection(...$paramRules);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResourceResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

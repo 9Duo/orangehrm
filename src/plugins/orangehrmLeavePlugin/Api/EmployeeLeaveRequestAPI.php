@@ -27,6 +27,7 @@ use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -50,11 +51,12 @@ use OrangeHRM\Leave\Traits\Service\LeaveRequestServiceTrait;
 
 class EmployeeLeaveRequestAPI extends Endpoint implements CrudEndpoint
 {
-    use LeaveRequestParamHelperTrait;
-    use LeaveRequestServiceTrait;
-    use UserRoleManagerTrait;
     use AuthUserTrait;
+    use LeaveRequestParamHelperTrait;
     use LeaveRequestPermissionTrait;
+    use LeaveRequestServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use UserRoleManagerTrait;
 
     public const PARAMETER_ACTION = 'action';
     public const PARAMETER_LEAVE_REQUEST_ID = 'leaveRequestId';
@@ -639,21 +641,5 @@ class EmployeeLeaveRequestAPI extends Endpoint implements CrudEndpoint
                 new ParamRule(self::FILTER_MODEL, new Rule(Rules::IN, [array_keys(self::MODEL_MAP)])),
             ),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

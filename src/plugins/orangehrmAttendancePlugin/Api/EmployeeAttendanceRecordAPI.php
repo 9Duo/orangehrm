@@ -38,6 +38,7 @@ use OrangeHRM\Core\Api\V2\Exception\ForbiddenException;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetOneEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -55,11 +56,12 @@ use OrangeHRM\Entity\WorkflowStateMachine;
 class EmployeeAttendanceRecordAPI extends Endpoint implements CrudEndpoint
 {
     use AttendanceServiceTrait;
-    use EntityManagerHelperTrait;
     use AuthUserTrait;
     use DateTimeHelperTrait;
-    use UserRoleManagerTrait;
+    use EntityManagerHelperTrait;
+    use NotImplementedGetOneEndpointTrait;
     use NumberHelperTrait;
+    use UserRoleManagerTrait;
 
     public const PARAMETER_DATE = 'date';
     public const PARAMETER_TIME = 'time';
@@ -575,22 +577,6 @@ class EmployeeAttendanceRecordAPI extends Endpoint implements CrudEndpoint
                 new Rule(Rules::ARRAY_TYPE)
             ),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getOne(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetOne(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**

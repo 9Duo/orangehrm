@@ -19,8 +19,7 @@
 
 namespace OrangeHRM\Pim\Api\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdNameModel;
 use OrangeHRM\Entity\ReportingMethod;
 
 /**
@@ -31,18 +30,10 @@ use OrangeHRM\Entity\ReportingMethod;
  *     @OA\Property(property="name", type="string")
  * )
  */
-class ReportingMethodConfigurationModel implements Normalizable
+class ReportingMethodConfigurationModel extends IdNameModel
 {
-    use ModelTrait;
-
     public function __construct(ReportingMethod $ReportingMethod)
     {
-        $this->setEntity($ReportingMethod);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
+        parent::__construct($ReportingMethod);
     }
 }

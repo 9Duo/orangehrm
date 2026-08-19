@@ -30,7 +30,10 @@ use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\Exception\BadRequestException;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
+use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetAllEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -40,13 +43,14 @@ use OrangeHRM\Core\Traits\Auth\AuthUserTrait;
 use OrangeHRM\Core\Traits\ORM\EntityManagerHelperTrait;
 use OrangeHRM\Entity\I18NLanguage;
 use OrangeHRM\ORM\Exception\TransactionException;
-use OrangeHRM\Core\Api\V2\ParameterBag;
 
 class I18NTranslationImportAPI extends Endpoint implements CollectionEndpoint
 {
-    use LocalizationServiceTrait;
-    use EntityManagerHelperTrait;
     use AuthUserTrait;
+    use EntityManagerHelperTrait;
+    use LocalizationServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetAllEndpointTrait;
 
     public const PARAMETER_LANGUAGE_ID = 'languageId';
     public const PARAMETER_ATTACHMENT = 'attachment';
@@ -57,22 +61,6 @@ class I18NTranslationImportAPI extends Endpoint implements CollectionEndpoint
     public const PARAMETER_SUCCESS = 'success';
     public const PARAMETER_FAILED = 'failed';
     public const PARAMETER_SKIPPED = 'skipped';
-
-    /**
-     * @inheritDoc
-     */
-    public function getAll(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetAll(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
 
     /**
      * @OA\Post(
@@ -180,23 +168,5 @@ class I18NTranslationImportAPI extends Endpoint implements CollectionEndpoint
                 )
             )
         );
-    }
-
-    /**
-     *
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     *
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

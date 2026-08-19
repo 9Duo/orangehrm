@@ -25,6 +25,8 @@ use OrangeHRM\Core\Api\V2\Endpoint;
 use OrangeHRM\Core\Api\V2\EndpointCollectionResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\ParameterBag;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedCreateEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Traits\UserRoleManagerTrait;
 use OrangeHRM\Entity\Vacancy;
@@ -36,9 +38,11 @@ use OrangeHRM\Recruitment\Traits\Service\VacancyServiceTrait;
 
 class HiringManagerAPI extends Endpoint implements CollectionEndpoint
 {
-    use VacancyServiceTrait;
     use EmployeeServiceTrait;
+    use NotImplementedCreateEndpointTrait;
+    use NotImplementedDeleteEndpointTrait;
     use UserRoleManagerTrait;
+    use VacancyServiceTrait;
 
     /**
      * @OA\Get(
@@ -105,37 +109,5 @@ class HiringManagerAPI extends Endpoint implements CollectionEndpoint
         return new ParamRuleCollection(
             ...$this->getSortingAndPaginationParamsRules(EmployeeSearchFilterParams::ALLOWED_SORT_FIELDS)
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function create(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForCreate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

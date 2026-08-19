@@ -26,6 +26,8 @@ use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\Exception\BadRequestException;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedCreateEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetAllEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -36,6 +38,9 @@ use OrangeHRM\ORM\Exception\TransactionException;
 
 class PurgeEmployeeAPI extends Endpoint implements CollectionEndpoint
 {
+    use NotImplementedCreateEndpointTrait;
+    use NotImplementedGetAllEndpointTrait;
+
     private ?PurgeService $purgeService = null;
 
     /**
@@ -101,37 +106,5 @@ class PurgeEmployeeAPI extends Endpoint implements CollectionEndpoint
                 new Rule(Rules::IN_ACCESSIBLE_EMP_NUMBERS, [false]),
             )
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getAll(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetAll(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function create(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForCreate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

@@ -29,6 +29,8 @@ use OrangeHRM\Core\Api\V2\EndpointCollectionResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedCreateEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -40,6 +42,8 @@ class I18NImportErrorAPI extends Endpoint implements CollectionEndpoint
 {
     use AuthUserTrait;
     use LocalizationServiceTrait;
+    use NotImplementedCreateEndpointTrait;
+    use NotImplementedDeleteEndpointTrait;
 
     public const PARAMETER_LANGUAGE_ID = 'languageId';
 
@@ -120,37 +124,5 @@ class I18NImportErrorAPI extends Endpoint implements CollectionEndpoint
             ),
             ...$this->getSortingAndPaginationParamsRules(I18NImportErrorSearchFilterParams::ALLOWED_SORT_FIELDS)
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function create(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForCreate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

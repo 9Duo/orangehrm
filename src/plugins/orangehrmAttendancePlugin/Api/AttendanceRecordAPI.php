@@ -32,6 +32,7 @@ use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\Exception\BadRequestException;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -48,8 +49,9 @@ class AttendanceRecordAPI extends Endpoint implements ResourceEndpoint
 {
     use AttendanceServiceTrait;
     use AuthUserTrait;
-    use UserRoleManagerTrait;
     use DateTimeHelperTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use UserRoleManagerTrait;
 
     public const PARAMETER_PUNCH_IN_DATE = 'punchInDate';
     public const PARAMETER_PUNCH_IN_TIME = 'punchInTime';
@@ -507,21 +509,5 @@ class AttendanceRecordAPI extends Endpoint implements ResourceEndpoint
                 true
             )
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

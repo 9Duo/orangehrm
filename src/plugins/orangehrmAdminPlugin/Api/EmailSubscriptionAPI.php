@@ -21,7 +21,6 @@ namespace OrangeHRM\Admin\Api;
 
 use OrangeHRM\Admin\Api\Model\EmailSubscriptionModel;
 use OrangeHRM\Admin\Dto\EmailSubscriptionSearchFilterParams;
-use OrangeHRM\Entity\EmailNotification;
 use OrangeHRM\Admin\Service\EmailSubscriptionService;
 use OrangeHRM\Core\Api\CommonParams;
 use OrangeHRM\Core\Api\V2\CrudEndpoint;
@@ -31,13 +30,21 @@ use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedCreateEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetOneEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
 use OrangeHRM\Core\Api\V2\Validator\Rules;
+use OrangeHRM\Entity\EmailNotification;
 
 class EmailSubscriptionAPI extends Endpoint implements CrudEndpoint
 {
+    use NotImplementedCreateEndpointTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetOneEndpointTrait;
+
     public const PARAMETER_ENABLED_STATUS = 'enabled';
 
     /**
@@ -115,54 +122,6 @@ class EmailSubscriptionAPI extends Endpoint implements CrudEndpoint
         return new ParamRuleCollection(
             ...$this->getSortingAndPaginationParamsRules(EmailSubscriptionSearchFilterParams::ALLOWED_SORT_FIELDS)
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function create(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForCreate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getOne(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetOne(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**

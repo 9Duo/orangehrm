@@ -33,6 +33,8 @@ use OrangeHRM\Core\Api\V2\Exception\ForbiddenException;
 use OrangeHRM\Core\Api\V2\Exception\InvalidParamException;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetAllEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetOneEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -44,9 +46,11 @@ use OrangeHRM\ORM\Exception\TransactionException;
 
 class BuzzShareAPI extends Endpoint implements CrudEndpoint
 {
-    use BuzzServiceTrait;
     use AuthUserTrait;
+    use BuzzServiceTrait;
     use EntityManagerHelperTrait;
+    use NotImplementedGetAllEndpointTrait;
+    use NotImplementedGetOneEndpointTrait;
 
     public const PARAMETER_TEXT = 'text';
     public const PARAMETER_SHARE_ID = 'shareId';
@@ -58,22 +62,6 @@ class BuzzShareAPI extends Endpoint implements CrudEndpoint
             self::MODEL_DEFAULT_POST => BuzzShareModel::class,
             self::MODEL_DETAILED_POST => BuzzFeedPostModel::class,
         ];
-
-    /**
-     * @inheritDoc
-     */
-    public function getAll(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetAll(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
 
     /**
      * @OA\Post(
@@ -218,22 +206,6 @@ class BuzzShareAPI extends Endpoint implements CrudEndpoint
                 new Rule(Rules::POSITIVE)
             )
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getOne(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetOne(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**

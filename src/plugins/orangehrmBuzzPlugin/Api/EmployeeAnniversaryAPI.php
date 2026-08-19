@@ -21,6 +21,7 @@ namespace OrangeHRM\Buzz\Api;
 
 use DateInterval;
 use OrangeHRM\Buzz\Api\Model\EmployeeAnniversaryModel;
+use OrangeHRM\Buzz\Dto\EmployeeAnniversarySearchFilterParams;
 use OrangeHRM\Buzz\Traits\Service\BuzzAnniversaryServiceTrait;
 use OrangeHRM\Core\Api\CommonParams;
 use OrangeHRM\Core\Api\V2\CollectionEndpoint;
@@ -28,14 +29,17 @@ use OrangeHRM\Core\Api\V2\Endpoint;
 use OrangeHRM\Core\Api\V2\EndpointCollectionResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\ParameterBag;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedCreateEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Traits\Service\DateTimeHelperTrait;
-use OrangeHRM\Buzz\Dto\EmployeeAnniversarySearchFilterParams;
 
 class EmployeeAnniversaryAPI extends Endpoint implements CollectionEndpoint
 {
     use BuzzAnniversaryServiceTrait;
     use DateTimeHelperTrait;
+    use NotImplementedCreateEndpointTrait;
+    use NotImplementedDeleteEndpointTrait;
 
     public const DATE_DIFFERENCE_MIN = 0;
     public const DATE_DIFFERENCE_MAX = 30;
@@ -104,37 +108,5 @@ class EmployeeAnniversaryAPI extends Endpoint implements CollectionEndpoint
         return new ParamRuleCollection(
             ...$this->getSortingAndPaginationParamsRules()
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function create(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForCreate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

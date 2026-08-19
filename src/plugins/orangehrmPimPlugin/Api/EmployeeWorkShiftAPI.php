@@ -25,6 +25,8 @@ use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedUpdateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -34,6 +36,8 @@ use OrangeHRM\Pim\Api\Model\EmployeeWorkShiftModel;
 
 class EmployeeWorkShiftAPI extends Endpoint implements ResourceEndpoint
 {
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedUpdateEndpointTrait;
     use WorkScheduleServiceTrait;
 
     /**
@@ -86,38 +90,6 @@ class EmployeeWorkShiftAPI extends Endpoint implements ResourceEndpoint
         return new ParamRuleCollection(
             $this->getEmpNumberRule(),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): EndpointResourceResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForUpdate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResourceResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**

@@ -22,8 +22,12 @@ namespace OrangeHRM\Pim\Api;
 use OrangeHRM\Core\Api\CommonParams;
 use OrangeHRM\Core\Api\V2\CollectionEndpoint;
 use OrangeHRM\Core\Api\V2\Endpoint;
+use OrangeHRM\Core\Api\V2\EndpointCollectionResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
+use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedCreateEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -33,14 +37,14 @@ use OrangeHRM\Entity\Employee;
 use OrangeHRM\Pim\Api\Model\EmployeeAllowedReportToEmployeeModel;
 use OrangeHRM\Pim\Dto\EmployeeSearchFilterParams;
 use OrangeHRM\Pim\Service\EmployeeReportingMethodService;
-use OrangeHRM\Core\Api\V2\ParameterBag;
-use OrangeHRM\Core\Api\V2\EndpointCollectionResult;
 use OrangeHRM\Pim\Traits\Service\EmployeeServiceTrait;
 
 class EmployeeAllowedReportToEmployeeAPI extends Endpoint implements CollectionEndpoint
 {
-    use UserRoleManagerTrait;
     use EmployeeServiceTrait;
+    use NotImplementedCreateEndpointTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use UserRoleManagerTrait;
 
     public const FILTER_NAME_OR_ID = 'nameOrId';
 
@@ -161,38 +165,6 @@ class EmployeeAllowedReportToEmployeeAPI extends Endpoint implements CollectionE
             ),
             ...$this->getSortingAndPaginationParamsRules(EmployeeSearchFilterParams::ALLOWED_SORT_FIELDS)
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function create(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForCreate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**

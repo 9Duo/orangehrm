@@ -31,6 +31,8 @@ use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedUpdateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -41,10 +43,12 @@ use OrangeHRM\Core\Traits\Service\DateTimeHelperTrait;
 
 class AttendanceEditPunchOutRecordOverlapAPI extends Endpoint implements ResourceEndpoint
 {
-    use DateTimeHelperTrait;
-    use AuthUserTrait;
-    use AttendanceServiceTrait;
     use AttendanceRecordPermissionTrait;
+    use AttendanceServiceTrait;
+    use AuthUserTrait;
+    use DateTimeHelperTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedUpdateEndpointTrait;
 
     public const PARAMETER_RECORD_ID = 'recordId';
     public const PARAMETER_PUNCH_IN_DATE = 'punchInDate';
@@ -260,37 +264,5 @@ class AttendanceEditPunchOutRecordOverlapAPI extends Endpoint implements Resourc
             $punchInDateTime->setTimezone(new DateTimeZone(DateTimeHelperService::TIMEZONE_UTC)),
             $punchOutDateTime->setTimezone(new DateTimeZone(DateTimeHelperService::TIMEZONE_UTC))
         ];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForUpdate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

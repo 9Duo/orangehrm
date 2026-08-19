@@ -28,20 +28,22 @@ use OrangeHRM\Core\Api\V2\Endpoint;
 use OrangeHRM\Core\Api\V2\EndpointCollectionResult;
 use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
+use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedCreateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
 use OrangeHRM\Core\Api\V2\Validator\Rules;
 use OrangeHRM\Core\Traits\Service\DateTimeHelperTrait;
 use OrangeHRM\Entity\I18NLanguage;
-use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 
 class I18NLanguageAPI extends Endpoint implements CrudEndpoint
 {
-    use LocalizationServiceTrait;
     use DateTimeHelperTrait;
+    use LocalizationServiceTrait;
+    use NotImplementedCreateEndpointTrait;
 
     public const PARAMETER_ACTIVE_ONLY = 'activeOnly';
 
@@ -121,22 +123,6 @@ class I18NLanguageAPI extends Endpoint implements CrudEndpoint
             ),
             ...$this->getSortingAndPaginationParamsRules(I18NLanguageSearchFilterParams::ALLOWED_SORT_FIELDS)
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function create(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForCreate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**

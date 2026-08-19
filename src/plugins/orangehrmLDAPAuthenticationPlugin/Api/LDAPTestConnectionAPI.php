@@ -25,6 +25,8 @@ use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetAllEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Traits\Service\ConfigServiceTrait;
 use OrangeHRM\Core\Traits\ValidatorTrait;
@@ -46,26 +48,12 @@ use function count;
 class LDAPTestConnectionAPI extends Endpoint implements CollectionEndpoint
 {
     use ConfigServiceTrait;
-    use ValidatorTrait;
+    use I18NHelperTrait;
     use LDAPCommonParamRuleCollection;
     use LDAPLoggerTrait;
-    use I18NHelperTrait;
-
-    /**
-     * @inheritDoc
-     */
-    public function getAll(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetAll(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetAllEndpointTrait;
+    use ValidatorTrait;
 
     /**
      * @OA\Post(
@@ -280,7 +268,6 @@ class LDAPTestConnectionAPI extends Endpoint implements CollectionEndpoint
             $this->getLogger()->error($e->getTraceAsString());
         }
 
-
         return [
             [
                 'category' => $this->getI18NHelper()->transBySource('Login'),
@@ -385,21 +372,5 @@ class LDAPTestConnectionAPI extends Endpoint implements CollectionEndpoint
         $paramRules->removeParamValidation(LDAPConfigAPI::PARAMETER_ENABLED);
         $paramRules->removeParamValidation(LDAPConfigAPI::PARAMETER_SYNC_INTERVAL);
         return $paramRules;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

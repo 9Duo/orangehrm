@@ -27,6 +27,8 @@ use OrangeHRM\Core\Api\V2\Exception\ForbiddenException;
 use OrangeHRM\Core\Api\V2\Exception\RecordNotFoundException;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetOneEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -49,32 +51,18 @@ use OrangeHRM\Recruitment\Traits\Service\CandidateServiceTrait;
 
 abstract class AbstractCandidateActionAPI extends Endpoint implements ResourceEndpoint
 {
-    use CandidateServiceTrait;
-    use EntityManagerHelperTrait;
     use AuthUserTrait;
+    use CandidateServiceTrait;
     use DateTimeHelperTrait;
-    use UserRoleManagerTrait;
     use EmployeeServiceTrait;
+    use EntityManagerHelperTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetOneEndpointTrait;
+    use UserRoleManagerTrait;
 
     public const PARAMETER_CANDIDATE_ID = 'candidateId';
     public const PARAMETER_INTERVIEW_ID = 'interviewId';
     public const PARAMETER_NOTE = 'note';
-
-    /**
-     * @inheritDoc
-     */
-    public function getOne(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetOne(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
 
     /**
      * @inheritDoc
@@ -198,22 +186,6 @@ abstract class AbstractCandidateActionAPI extends Endpoint implements ResourceEn
     }
 
     /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
      * @return int|null
      */
     protected function getInterviewId(): ?int
@@ -223,7 +195,6 @@ abstract class AbstractCandidateActionAPI extends Endpoint implements ResourceEn
             self::PARAMETER_INTERVIEW_ID
         );
     }
-
 
     /**
      * @param CandidateVacancy $candidateVacancy

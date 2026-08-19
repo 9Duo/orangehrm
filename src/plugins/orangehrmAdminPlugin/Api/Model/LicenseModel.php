@@ -19,8 +19,7 @@
 
 namespace OrangeHRM\Admin\Api\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdNameModel;
 use OrangeHRM\Entity\License;
 
 /**
@@ -31,18 +30,10 @@ use OrangeHRM\Entity\License;
  *     @OA\Property(property="name", description="The name of the license", type="string")
  * )
  */
-class LicenseModel implements Normalizable
+class LicenseModel extends IdNameModel
 {
-    use ModelTrait;
-
     public function __construct(License $license)
     {
-        $this->setEntity($license);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
+        parent::__construct($license);
     }
 }

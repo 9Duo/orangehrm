@@ -25,6 +25,7 @@ use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Traits\Service\ConfigServiceTrait;
 use OrangeHRM\Core\Traits\ValidatorTrait;
@@ -36,8 +37,9 @@ use OrangeHRM\LDAP\Dto\LDAPUserLookupSetting;
 class LDAPConfigAPI extends Endpoint implements ResourceEndpoint
 {
     use ConfigServiceTrait;
-    use ValidatorTrait;
     use LDAPCommonParamRuleCollection;
+    use NotImplementedDeleteEndpointTrait;
+    use ValidatorTrait;
 
     public const PARAMETER_ENABLED = 'enable';
     public const PARAMETER_HOSTNAME = 'hostname';
@@ -344,22 +346,6 @@ class LDAPConfigAPI extends Endpoint implements ResourceEndpoint
         $paramRules = $this->getParamRuleCollection();
         $paramRules->addExcludedParamKey(CommonParams::PARAMETER_ID);
         return $paramRules;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**

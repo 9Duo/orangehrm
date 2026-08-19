@@ -19,31 +19,16 @@
 
 namespace OrangeHRM\Admin\Service\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdLabelModel;
 use OrangeHRM\Entity\Nationality;
 
-class NationalityModel implements Normalizable
+class NationalityModel extends IdLabelModel
 {
-    use ModelTrait;
-
     /**
      * @param Nationality $nationality
      */
     public function __construct(Nationality $nationality)
     {
-        $this->setEntity($nationality);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
-        $this->setAttributeNames(
-            [
-                'id',
-                'label'
-            ]
-        );
+        parent::__construct($nationality);
     }
 }

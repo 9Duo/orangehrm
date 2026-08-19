@@ -33,6 +33,8 @@ use OrangeHRM\Core\Api\V2\Exception\RecordNotFoundException;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\Serializer\NormalizeException;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetOneEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -56,11 +58,13 @@ use OrangeHRM\Time\Traits\Service\TimesheetServiceTrait;
 class EmployeeTimesheetAPI extends Endpoint implements CrudEndpoint
 {
     use AuthUserTrait;
-    use TimesheetServiceTrait;
     use DateTimeHelperTrait;
-    use UserRoleManagerTrait;
     use EntityManagerHelperTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetOneEndpointTrait;
     use TimesheetPermissionTrait;
+    use TimesheetServiceTrait;
+    use UserRoleManagerTrait;
 
     public const PARAMETER_DATE = 'date';
     public const PARAMETER_ACTION = 'action';
@@ -309,38 +313,6 @@ class EmployeeTimesheetAPI extends Endpoint implements CrudEndpoint
             ),
             $this->getEmpNumberParamRule(),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getOne(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetOne(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**

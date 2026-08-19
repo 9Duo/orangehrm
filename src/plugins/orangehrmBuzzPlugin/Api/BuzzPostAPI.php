@@ -19,6 +19,7 @@
 
 namespace OrangeHRM\Buzz\Api;
 
+use Exception;
 use OrangeHRM\Buzz\Api\Model\BuzzFeedPostModel;
 use OrangeHRM\Buzz\Api\Model\BuzzPostModel;
 use OrangeHRM\Buzz\Api\ValidationRules\BuzzVideoLinkValidationRule;
@@ -36,6 +37,8 @@ use OrangeHRM\Core\Api\V2\Exception\BadRequestException;
 use OrangeHRM\Core\Api\V2\Exception\ForbiddenException;
 use OrangeHRM\Core\Api\V2\Exception\InvalidParamException;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetAllEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -50,15 +53,16 @@ use OrangeHRM\Entity\BuzzPhoto;
 use OrangeHRM\Entity\BuzzPost;
 use OrangeHRM\Entity\BuzzShare;
 use OrangeHRM\ORM\Exception\TransactionException;
-use Exception;
 
 class BuzzPostAPI extends Endpoint implements CrudEndpoint
 {
-    use EntityManagerHelperTrait;
-    use BuzzServiceTrait;
-    use UserRoleManagerTrait;
-    use DateTimeHelperTrait;
     use AuthUserTrait;
+    use BuzzServiceTrait;
+    use DateTimeHelperTrait;
+    use EntityManagerHelperTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetAllEndpointTrait;
+    use UserRoleManagerTrait;
 
     public const PARAMETER_POST_TEXT = 'text';
     public const PARAMETER_POST_TYPE = 'type';
@@ -77,22 +81,6 @@ class BuzzPostAPI extends Endpoint implements CrudEndpoint
             self::MODEL_DEFAULT_POST => BuzzPostModel::class,
             self::MODEL_DETAILED_POST => BuzzFeedPostModel::class,
     ];
-
-    /**
-     * @inheritDoc
-     */
-    public function getAll(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetAll(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
 
     /**
      * @OA\Post(
@@ -370,22 +358,6 @@ class BuzzPostAPI extends Endpoint implements CrudEndpoint
             new Rule(Rules::REQUIRED),
             new Rule(Rules::STR_LENGTH, [null, self::PARAM_RULE_TEXT_MAX_LENGTH])
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**

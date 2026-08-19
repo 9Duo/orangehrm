@@ -26,6 +26,8 @@ use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedUpdateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -36,6 +38,8 @@ use OrangeHRM\Time\Traits\Service\ProjectServiceTrait;
 
 class ValidationProjectActivityNameAPI extends Endpoint implements ResourceEndpoint
 {
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedUpdateEndpointTrait;
     use ProjectServiceTrait;
 
     public const PARAMETER_PROJECT_ACTIVITY_NAME = 'activityName';
@@ -43,7 +47,6 @@ class ValidationProjectActivityNameAPI extends Endpoint implements ResourceEndpo
     public const PARAMETER_IS_CHANGEABLE_PROJECT_ACTIVITY_NAME = 'valid';
 
     public const PARAM_RULE_PROJECT_ACTIVITY_NAME_MAX_LENGTH = 50;
-
 
     /**
      * @OA\Get(
@@ -152,37 +155,5 @@ class ValidationProjectActivityNameAPI extends Endpoint implements ResourceEndpo
                 )
             )
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForUpdate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

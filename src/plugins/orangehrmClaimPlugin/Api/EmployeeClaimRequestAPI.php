@@ -37,6 +37,8 @@ use OrangeHRM\Core\Api\V2\Exception\InvalidParamException;
 use OrangeHRM\Core\Api\V2\Model\WorkflowStateModel;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedUpdateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -54,13 +56,15 @@ use OrangeHRM\Pim\Traits\Service\EmployeeServiceTrait;
 
 class EmployeeClaimRequestAPI extends Endpoint implements CrudEndpoint
 {
-    use EntityManagerHelperTrait;
+    use AuthUserTrait;
     use ClaimServiceTrait;
     use DateTimeHelperTrait;
-    use AuthUserTrait;
-    use NormalizerServiceTrait;
-    use UserRoleManagerTrait;
     use EmployeeServiceTrait;
+    use EntityManagerHelperTrait;
+    use NormalizerServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedUpdateEndpointTrait;
+    use UserRoleManagerTrait;
 
     public const PARAMETER_CLAIM_EVENT_ID = 'claimEventId';
     public const PARAMETER_CURRENCY_ID = 'currencyId';
@@ -674,37 +678,5 @@ class EmployeeClaimRequestAPI extends Endpoint implements CrudEndpoint
         }
         return $this->getNormalizerService()
             ->normalizeArray(WorkflowStateModel::class, $allowedWorkflowItems);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForUpdate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

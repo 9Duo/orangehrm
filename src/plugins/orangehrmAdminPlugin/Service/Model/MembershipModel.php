@@ -19,31 +19,16 @@
 
 namespace OrangeHRM\Admin\Service\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdLabelModel;
 use OrangeHRM\Entity\Membership;
 
-class MembershipModel implements Normalizable
+class MembershipModel extends IdLabelModel
 {
-    use ModelTrait;
-
     /**
      * @param Membership $membership
      */
     public function __construct(Membership $membership)
     {
-        $this->setEntity($membership);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
-        $this->setAttributeNames(
-            [
-                'id',
-                'label'
-            ]
-        );
+        parent::__construct($membership);
     }
 }

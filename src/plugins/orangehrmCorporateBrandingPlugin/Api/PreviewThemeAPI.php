@@ -24,6 +24,8 @@ use OrangeHRM\Core\Api\V2\Endpoint;
 use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetAllEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\CorporateBranding\Api\Traits\VariablesParamRuleCollection;
 use OrangeHRM\CorporateBranding\Dto\ThemeVariables;
@@ -31,24 +33,10 @@ use OrangeHRM\CorporateBranding\Traits\ThemeServiceTrait;
 
 class PreviewThemeAPI extends Endpoint implements CollectionEndpoint
 {
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetAllEndpointTrait;
     use ThemeServiceTrait;
     use VariablesParamRuleCollection;
-
-    /**
-     * @inheritDoc
-     */
-    public function getAll(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetAll(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
 
     /**
      * @OA\Post(
@@ -115,21 +103,5 @@ class PreviewThemeAPI extends Endpoint implements CollectionEndpoint
     public function getValidationRuleForCreate(): ParamRuleCollection
     {
         return $this->getParamRuleCollection();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

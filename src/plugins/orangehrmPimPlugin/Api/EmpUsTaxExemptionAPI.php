@@ -26,6 +26,7 @@ use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -38,6 +39,7 @@ use OrangeHRM\Pim\Service\EmpUsTaxExemptionService;
 class EmpUsTaxExemptionAPI extends Endpoint implements ResourceEndpoint
 {
     use ConfigServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
 
     public const PARAMETER_FEDERAL_STATUS = 'federalStatus';
     public const PARAMETER_FEDERAL_EXEMPTIONS = 'federalExemptions';
@@ -312,21 +314,5 @@ class EmpUsTaxExemptionAPI extends Endpoint implements ResourceEndpoint
                 ),
             ),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResourceResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

@@ -29,6 +29,8 @@ use OrangeHRM\Core\Api\V2\Exception\BadRequestException;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetAllEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -41,6 +43,8 @@ use OrangeHRM\Pim\Service\PimCsvDataImportService;
 class EmployeeCSVImportAPI extends Endpoint implements CollectionEndpoint
 {
     use EntityManagerHelperTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetAllEndpointTrait;
 
     public const PARAMETER_ATTACHMENT = 'attachment';
     public const PARAMETER_SUCCESS = 'success';
@@ -64,23 +68,6 @@ class EmployeeCSVImportAPI extends Endpoint implements CollectionEndpoint
             $this->pimCsvDataImportService = new PimCsvDataImportService();
         }
         return $this->pimCsvDataImportService;
-    }
-
-
-    /**
-     * @inheritDoc
-     */
-    public function getAll(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetAll(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**
@@ -157,7 +144,6 @@ class EmployeeCSVImportAPI extends Endpoint implements CollectionEndpoint
         );
     }
 
-
     /**
      * @return ParamRule
      */
@@ -170,21 +156,5 @@ class EmployeeCSVImportAPI extends Endpoint implements CollectionEndpoint
                 [self::PARAM_RULE_IMPORT_FILE_FORMAT, self::PARAM_RULE_IMPORT_FILE_EXTENSIONS]
             )
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

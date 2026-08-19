@@ -19,31 +19,16 @@
 
 namespace OrangeHRM\Pim\Service\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdLabelModel;
 use OrangeHRM\Entity\TerminationReason;
 
-class TerminationReasonModel implements Normalizable
+class TerminationReasonModel extends IdLabelModel
 {
-    use ModelTrait;
-
     /**
      * @param TerminationReason $terminationReason
      */
     public function __construct(TerminationReason $terminationReason)
     {
-        $this->setEntity($terminationReason);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
-        $this->setAttributeNames(
-            [
-                'id',
-                'label'
-            ]
-        );
+        parent::__construct($terminationReason);
     }
 }

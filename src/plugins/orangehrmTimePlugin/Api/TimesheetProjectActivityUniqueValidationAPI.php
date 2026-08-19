@@ -25,6 +25,8 @@ use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedUpdateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -35,8 +37,10 @@ use OrangeHRM\Time\Traits\Service\TimesheetServiceTrait;
 
 class TimesheetProjectActivityUniqueValidationAPI extends Endpoint implements ResourceEndpoint
 {
-    use TimesheetServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedUpdateEndpointTrait;
     use TimesheetPermissionTrait;
+    use TimesheetServiceTrait;
 
     public const PARAMETER_TIMESHEET_ID = 'timesheetId';
     public const PARAMETER_ACTIVITY_ID = 'activityId';
@@ -134,37 +138,5 @@ class TimesheetProjectActivityUniqueValidationAPI extends Endpoint implements Re
                 new Rule(Rules::POSITIVE),
             ),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function update(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForUpdate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

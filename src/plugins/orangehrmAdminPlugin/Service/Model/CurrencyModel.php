@@ -19,31 +19,16 @@
 
 namespace OrangeHRM\Admin\Service\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdLabelModel;
 use OrangeHRM\Entity\CurrencyType;
 
-class CurrencyModel implements Normalizable
+class CurrencyModel extends IdLabelModel
 {
-    use ModelTrait;
-
     /**
      * @param CurrencyType $currencyType
      */
     public function __construct(CurrencyType $currencyType)
     {
-        $this->setEntity($currencyType);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
-        $this->setAttributeNames(
-            [
-                'id',
-                'label'
-            ]
-        );
+        parent::__construct($currencyType);
     }
 }

@@ -19,31 +19,16 @@
 
 namespace OrangeHRM\Admin\Service\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdLabelModel;
 use OrangeHRM\Entity\JobCategory;
 
-class JobCategoryModel implements Normalizable
+class JobCategoryModel extends IdLabelModel
 {
-    use ModelTrait;
-
     /**
      * @param JobCategory $jobCategory
      */
     public function __construct(JobCategory $jobCategory)
     {
-        $this->setEntity($jobCategory);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
-        $this->setAttributeNames(
-            [
-                'id',
-                'label'
-            ]
-        );
+        parent::__construct($jobCategory);
     }
 }

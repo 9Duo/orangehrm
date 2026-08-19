@@ -19,8 +19,7 @@
 
 namespace OrangeHRM\Pim\Api\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdNameModel;
 use OrangeHRM\Entity\Skill;
 
 /**
@@ -31,18 +30,10 @@ use OrangeHRM\Entity\Skill;
  *     @OA\Property(property="name", description="The name of the skill", type="string")
  * )
  */
-class EmployeeAllowedSkillModel implements Normalizable
+class EmployeeAllowedSkillModel extends IdNameModel
 {
-    use ModelTrait;
-
     public function __construct(Skill $skill)
     {
-        $this->setEntity($skill);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
+        parent::__construct($skill);
     }
 }

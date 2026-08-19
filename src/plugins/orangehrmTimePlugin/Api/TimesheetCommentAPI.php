@@ -27,6 +27,7 @@ use OrangeHRM\Core\Api\V2\Exception\ForbiddenException;
 use OrangeHRM\Core\Api\V2\Exception\RecordNotFoundException;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -43,9 +44,10 @@ use OrangeHRM\Time\Traits\Service\TimesheetServiceTrait;
 
 class TimesheetCommentAPI extends Endpoint implements ResourceEndpoint
 {
-    use TimesheetServiceTrait;
-    use TimesheetPermissionTrait;
+    use NotImplementedDeleteEndpointTrait;
     use ProjectServiceTrait;
+    use TimesheetPermissionTrait;
+    use TimesheetServiceTrait;
 
     public const PARAMETER_PROJECT_ID = 'projectId';
     public const PARAMETER_TIMESHEET_ID = 'timesheetId';
@@ -205,22 +207,6 @@ class TimesheetCommentAPI extends Endpoint implements ResourceEndpoint
                 true
             ),
         ];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**

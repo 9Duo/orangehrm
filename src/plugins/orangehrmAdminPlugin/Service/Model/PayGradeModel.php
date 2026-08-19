@@ -19,31 +19,16 @@
 
 namespace OrangeHRM\Admin\Service\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdLabelModel;
 use OrangeHRM\Entity\PayGrade;
 
-class PayGradeModel implements Normalizable
+class PayGradeModel extends IdLabelModel
 {
-    use ModelTrait;
-
     /**
      * @param PayGrade $payGrade
      */
     public function __construct(PayGrade $payGrade)
     {
-        $this->setEntity($payGrade);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
-        $this->setAttributeNames(
-            [
-                'id',
-                'label'
-            ]
-        );
+        parent::__construct($payGrade);
     }
 }

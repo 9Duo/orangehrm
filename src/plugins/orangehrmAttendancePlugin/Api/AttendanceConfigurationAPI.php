@@ -29,6 +29,7 @@ use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -40,8 +41,9 @@ use OrangeHRM\ORM\Exception\TransactionException;
 class AttendanceConfigurationAPI extends Endpoint implements ResourceEndpoint
 {
     use AttendanceServiceTrait;
-    use UserRoleManagerTrait;
     use EntityManagerHelperTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use UserRoleManagerTrait;
 
     public const PARAMETER_CAN_USER_CHANGE_THE_CURRENT_TIME = 'canUserChangeCurrentTime';
     public const PARAMETER_CAN_USER_MODIFY_ATTENDANCE = 'canUserModifyAttendance';
@@ -195,21 +197,5 @@ class AttendanceConfigurationAPI extends Endpoint implements ResourceEndpoint
         );
         $paramRules->addExcludedParamKey(CommonParams::PARAMETER_ID);
         return $paramRules;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

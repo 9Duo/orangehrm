@@ -27,6 +27,7 @@ use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedCreateEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -42,6 +43,7 @@ use OrangeHRM\Recruitment\Traits\Service\CandidateServiceTrait;
 class PurgeCandidateAPI extends Endpoint implements CollectionEndpoint
 {
     use CandidateServiceTrait;
+    use NotImplementedCreateEndpointTrait;
 
     private ?PurgeService $purgeService = null;
 
@@ -187,21 +189,5 @@ class PurgeCandidateAPI extends Endpoint implements CollectionEndpoint
             ),
             ...$this->getSortingAndPaginationParamsRules([])
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function create(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForCreate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

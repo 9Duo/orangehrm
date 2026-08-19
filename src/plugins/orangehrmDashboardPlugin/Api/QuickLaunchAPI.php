@@ -24,12 +24,16 @@ use OrangeHRM\Core\Api\V2\Endpoint;
 use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedCreateEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Traits\UserRoleManagerTrait;
 use OrangeHRM\Dashboard\Dao\QuickLaunchDao;
 
 class QuickLaunchAPI extends Endpoint implements CollectionEndpoint
 {
+    use NotImplementedCreateEndpointTrait;
+    use NotImplementedDeleteEndpointTrait;
     use UserRoleManagerTrait;
 
     protected const QUICK_LAUNCH_ITEMS = [
@@ -93,37 +97,5 @@ class QuickLaunchAPI extends Endpoint implements CollectionEndpoint
         }
 
         return $activeItems;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function create(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForCreate(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

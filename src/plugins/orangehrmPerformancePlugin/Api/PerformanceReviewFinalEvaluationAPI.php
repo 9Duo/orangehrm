@@ -25,6 +25,7 @@ use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -42,8 +43,9 @@ use OrangeHRM\Performance\Traits\Service\PerformanceReviewServiceTrait;
 class PerformanceReviewFinalEvaluationAPI extends Endpoint implements ResourceEndpoint
 {
     use EntityManagerHelperTrait;
-    use UserRoleManagerTrait;
+    use NotImplementedDeleteEndpointTrait;
     use PerformanceReviewServiceTrait;
+    use UserRoleManagerTrait;
 
     public const PARAMETER_REVIEW_ID = 'reviewId';
     public const PARAMETER_FINAL_RATING = 'finalRating';
@@ -300,21 +302,5 @@ class PerformanceReviewFinalEvaluationAPI extends Endpoint implements ResourceEn
                 ])
             )
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

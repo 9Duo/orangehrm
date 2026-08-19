@@ -29,6 +29,8 @@ use OrangeHRM\Core\Api\V2\Exception\ForbiddenException;
 use OrangeHRM\Core\Api\V2\Exception\RecordNotFoundException;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetAllEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -49,11 +51,13 @@ use OrangeHRM\Recruitment\Traits\Service\CandidateServiceTrait;
 
 class CandidateInterviewSchedulingAPI extends Endpoint implements CrudEndpoint
 {
-    use CandidateServiceTrait;
-    use UserRoleManagerTrait;
     use AuthUserTrait;
+    use CandidateServiceTrait;
     use DateTimeHelperTrait;
     use EntityManagerHelperTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetAllEndpointTrait;
+    use UserRoleManagerTrait;
 
     public const PARAMETER_CANDIDATE_ID = 'candidateId';
     public const PARAMETER_INTERVIEW_ID = 'interviewId';
@@ -69,22 +73,6 @@ class CandidateInterviewSchedulingAPI extends Endpoint implements CrudEndpoint
     public const PARAMETER_RULE_NOTE_MAX_LENGTH = 2000;
 
     public const MAXIMUM_ALLOWED_INTERVIEWS_COUNT = 2;
-
-    /**
-     * @inheritDoc
-     */
-    public function getAll(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetAll(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
 
     /**
      * @OA\Post(
@@ -326,22 +314,6 @@ class CandidateInterviewSchedulingAPI extends Endpoint implements CrudEndpoint
                 )
             )
         ];
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 
     /**

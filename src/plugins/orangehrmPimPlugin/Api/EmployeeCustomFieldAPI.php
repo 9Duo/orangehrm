@@ -26,6 +26,7 @@ use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -41,9 +42,10 @@ use OrangeHRM\Pim\Traits\Service\EmployeeServiceTrait;
 
 class EmployeeCustomFieldAPI extends Endpoint implements ResourceEndpoint
 {
-    use UserRoleManagerTrait;
     use EmployeeServiceTrait;
     use NormalizerServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use UserRoleManagerTrait;
 
     public const PARAMETER_SCREEN = 'screen';
     public const META_PARAMETER_FIELDS = 'fields';
@@ -341,21 +343,5 @@ class EmployeeCustomFieldAPI extends Endpoint implements ResourceEndpoint
             );
         }
         return $rules;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResourceResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

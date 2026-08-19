@@ -26,6 +26,7 @@ use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -35,6 +36,7 @@ use OrangeHRM\Core\Traits\Service\ConfigServiceTrait;
 class EmployeeOnLeaveTodayConfigAPI extends Endpoint implements ResourceEndpoint
 {
     use ConfigServiceTrait;
+    use NotImplementedDeleteEndpointTrait;
 
     public const PARAMETER_SHOW_ONLY_ACCESSIBLE_EMPLOYEES_ON_LEAVE_TODAY = 'showOnlyAccessibleEmployeesOnLeaveToday';
 
@@ -129,21 +131,5 @@ class EmployeeOnLeaveTodayConfigAPI extends Endpoint implements ResourceEndpoint
         );
         $paramsRules->addExcludedParamKey(CommonParams::PARAMETER_ID);
         return $paramsRules;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

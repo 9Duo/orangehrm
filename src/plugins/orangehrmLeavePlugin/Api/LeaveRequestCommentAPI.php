@@ -27,6 +27,7 @@ use OrangeHRM\Core\Api\V2\EndpointCollectionResult;
 use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -43,10 +44,11 @@ use OrangeHRM\Leave\Service\LeaveRequestCommentService;
 
 class LeaveRequestCommentAPI extends Endpoint implements CollectionEndpoint
 {
+    use AuthUserTrait;
     use DateTimeHelperTrait;
     use EntityManagerHelperTrait;
-    use AuthUserTrait;
     use LeaveRequestPermissionTrait;
+    use NotImplementedDeleteEndpointTrait;
 
     public const PARAMETER_LEAVE_REQUEST_ID = 'leaveRequestId';
     public const PARAMETER_COMMENT = 'comment';
@@ -264,21 +266,5 @@ class LeaveRequestCommentAPI extends Endpoint implements CollectionEndpoint
         return $this->getLeaveRequestCommentService()
             ->getLeaveRequestCommentDao()
             ->saveLeaveRequestComment($leaveRequestComment);
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResourceResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

@@ -26,6 +26,7 @@ use OrangeHRM\Core\Api\V2\Exception\BadRequestException;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -40,6 +41,7 @@ use OrangeHRM\Pim\Service\EmploymentContractService;
 
 class EmploymentContractAPI extends Endpoint implements ResourceEndpoint
 {
+    use NotImplementedDeleteEndpointTrait;
     use UserRoleManagerTrait;
 
     public const PARAMETER_START_DATE = 'startDate';
@@ -353,21 +355,5 @@ class EmploymentContractAPI extends Endpoint implements ResourceEndpoint
             }
         }
         return $paramRules;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResourceResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

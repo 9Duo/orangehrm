@@ -24,6 +24,7 @@ use OrangeHRM\Core\Api\V2\Endpoint;
 use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -34,6 +35,8 @@ use OrangeHRM\Pim\Service\EmployeePictureService;
 
 class EmployeePictureAPI extends Endpoint implements ResourceEndpoint
 {
+    use NotImplementedDeleteEndpointTrait;
+
     public const PARAMETER_EMP_PICTURE = 'empPicture';
 
     public const PARAM_RULE_EMP_PICTURE_FILE_NAME_MAX_LENGTH = 100;
@@ -185,21 +188,5 @@ class EmployeePictureAPI extends Endpoint implements ResourceEndpoint
                 )
             ),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResourceResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

@@ -19,31 +19,16 @@
 
 namespace OrangeHRM\Pim\Service\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdLabelModel;
 use OrangeHRM\Entity\ReportingMethod;
 
-class ReportingMethodModel implements Normalizable
+class ReportingMethodModel extends IdLabelModel
 {
-    use ModelTrait;
-
     /**
      * @param ReportingMethod $reportingMethod
      */
     public function __construct(ReportingMethod $reportingMethod)
     {
-        $this->setEntity($reportingMethod);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
-        $this->setAttributeNames(
-            [
-                'id',
-                'label'
-            ]
-        );
+        parent::__construct($reportingMethod);
     }
 }

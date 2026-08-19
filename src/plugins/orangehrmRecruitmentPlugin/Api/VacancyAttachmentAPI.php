@@ -29,6 +29,7 @@ use OrangeHRM\Core\Api\V2\Model\ArrayModel;
 use OrangeHRM\Core\Api\V2\ParameterBag;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\Serializer\NormalizeException;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetAllEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -41,6 +42,7 @@ use OrangeHRM\Recruitment\Traits\Service\RecruitmentAttachmentServiceTrait;
 
 class VacancyAttachmentAPI extends Endpoint implements CrudEndpoint
 {
+    use NotImplementedGetAllEndpointTrait;
     use RecruitmentAttachmentServiceTrait;
 
     public const PARAMETER_ATTACHMENT_ID = 'attachmentId';
@@ -57,22 +59,6 @@ class VacancyAttachmentAPI extends Endpoint implements CrudEndpoint
     public const PARAM_RULE_CURRENT_ATTACHMENT_MAX_LENGTH = 16;
 
     public const VACANCY_ATTACHMENT_REPLACE_CURRENT = 'replaceCurrent';
-
-    /**
-     * @inheritDoc
-     */
-    public function getAll(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetAll(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
 
     /**
      * @OA\Post(

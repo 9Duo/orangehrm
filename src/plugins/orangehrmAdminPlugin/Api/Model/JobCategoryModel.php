@@ -19,8 +19,7 @@
 
 namespace OrangeHRM\Admin\Api\Model;
 
-use OrangeHRM\Core\Api\V2\Serializer\ModelTrait;
-use OrangeHRM\Core\Api\V2\Serializer\Normalizable;
+use OrangeHRM\Core\Api\V2\Model\IdNameModel;
 use OrangeHRM\Entity\JobCategory;
 
 /**
@@ -31,18 +30,10 @@ use OrangeHRM\Entity\JobCategory;
  *     @OA\Property(property="name", type="string")
  * )
  */
-class JobCategoryModel implements Normalizable
+class JobCategoryModel extends IdNameModel
 {
-    use ModelTrait;
-
     public function __construct(JobCategory $jobCategory)
     {
-        $this->setEntity($jobCategory);
-        $this->setFilters(
-            [
-                'id',
-                'name',
-            ]
-        );
+        parent::__construct($jobCategory);
     }
 }

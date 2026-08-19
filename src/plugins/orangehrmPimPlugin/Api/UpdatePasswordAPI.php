@@ -27,6 +27,8 @@ use OrangeHRM\Core\Api\V2\EndpointResourceResult;
 use OrangeHRM\Core\Api\V2\EndpointResult;
 use OrangeHRM\Core\Api\V2\RequestParams;
 use OrangeHRM\Core\Api\V2\ResourceEndpoint;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedDeleteEndpointTrait;
+use OrangeHRM\Core\Api\V2\Traits\NotImplementedGetOneEndpointTrait;
 use OrangeHRM\Core\Api\V2\Validator\ParamRule;
 use OrangeHRM\Core\Api\V2\Validator\ParamRuleCollection;
 use OrangeHRM\Core\Api\V2\Validator\Rule;
@@ -36,30 +38,16 @@ use OrangeHRM\Core\Traits\UserRoleManagerTrait;
 
 class UpdatePasswordAPI extends Endpoint implements ResourceEndpoint
 {
+    use DateTimeHelperTrait;
+    use NotImplementedDeleteEndpointTrait;
+    use NotImplementedGetOneEndpointTrait;
     use UserRoleManagerTrait;
     use UserServiceTrait;
-    use DateTimeHelperTrait;
 
     public const PARAMETER_CURRENT_PASSWORD = 'currentPassword';
     public const PARAMETER_NEW_PASSWORD = 'newPassword';
 
     public const PARAM_RULE_PASSWORD_MAX_LENGTH = 64;
-
-    /**
-     * @inheritDoc
-     */
-    public function getOne(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForGetOne(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
-    }
 
     /**
      * @OA\Put(
@@ -144,21 +132,5 @@ class UpdatePasswordAPI extends Endpoint implements ResourceEndpoint
                 ),
             ),
         );
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function delete(): EndpointResult
-    {
-        throw $this->getNotImplementedException();
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getValidationRuleForDelete(): ParamRuleCollection
-    {
-        throw $this->getNotImplementedException();
     }
 }

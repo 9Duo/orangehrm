@@ -20,10 +20,15 @@
 namespace OrangeHRM\Authentication\Utility;
 
 use OrangeHRM\Authentication\Dto\UserCredential;
+use OrangeHRM\Core\Traits\LoggerTrait;
+use OrangeHRM\Framework\Services;
+use Throwable;
 use ZxcvbnPhp\Zxcvbn;
 
 class PasswordStrengthValidation
 {
+    use LoggerTrait;
+
     private Zxcvbn $zxcvbn;
 
     public const VERY_WEAK = 0;
@@ -61,7 +66,12 @@ class PasswordStrengthValidation
             if ($strength['score'] == 4) {
                 return self::STRONGEST;
             }
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
+            // Also used by the installer CLI, where the logger service isn't available
+            if ($this->getContainer()->has(Services::LOGGER)) {
+                $this->getLogger()->error('Password strength evaluation failed: ' . $e->getMessage());
+                $this->getLogger()->error($e->getTraceAsString());
+            }
         }
         return self::VERY_WEAK;
     }

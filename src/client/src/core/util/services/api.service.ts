@@ -138,7 +138,7 @@ export class APIService {
       (error: AxiosError<ErrorResponse>): Promise<AxiosError> => {
         if (error.response?.status === 401) {
           reloadPage();
-          return Promise.reject();
+          return Promise.reject(error);
         }
 
         if (this.ignoreError(error)) {
@@ -148,7 +148,7 @@ export class APIService {
         const $toast = vm?.appContext.config.globalProperties.$toast;
         if ($toast && error.code !== 'ECONNABORTED') {
           const response = error.response?.data;
-          $toast.unexpectedError(response?.error.message || null);
+          $toast.unexpectedError(response?.error?.message || null);
         }
         return Promise.reject(error);
       },

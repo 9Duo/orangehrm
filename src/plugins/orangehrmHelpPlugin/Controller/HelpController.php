@@ -23,12 +23,15 @@ use Exception;
 use OrangeHRM\Authentication\Controller\ForbiddenController;
 use OrangeHRM\Core\Controller\AbstractVueController;
 use OrangeHRM\Core\Controller\Exception\RequestForwardableException;
+use OrangeHRM\Core\Traits\LoggerTrait;
 use OrangeHRM\Framework\Http\RedirectResponse;
 use OrangeHRM\Framework\Http\Request;
 use OrangeHRM\Help\Service\HelpService;
 
 class HelpController extends AbstractVueController
 {
+    use LoggerTrait;
+
     protected ?HelpService $helpService = null;
 
     public function getHelpService(): HelpService
@@ -49,6 +52,8 @@ class HelpController extends AbstractVueController
                 $redirectUrl = $this->getHelpService()->getRedirectUrl($label);
                 return new RedirectResponse($redirectUrl);
             } catch (Exception $e) {
+                $this->getLogger()->error('Failed to resolve help redirect URL: ' . $e->getMessage());
+                $this->getLogger()->error($e->getTraceAsString());
                 $defaultRedirectUrl = $this->getHelpService()->getDefaultRedirectUrl();
                 return new RedirectResponse($defaultRedirectUrl);
             }

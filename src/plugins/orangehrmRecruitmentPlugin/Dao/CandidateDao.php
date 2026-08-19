@@ -19,7 +19,8 @@
 
 namespace OrangeHRM\Recruitment\Dao;
 
-use Exception;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\NonUniqueResultException;
 use OrangeHRM\Core\Dao\BaseDao;
 use OrangeHRM\Entity\Candidate;
 use OrangeHRM\Entity\CandidateHistory;
@@ -531,7 +532,7 @@ class CandidateDao extends BaseDao
             $q->setParameter('candidateId', $candidateId);
             $q->setMaxResults(1);
             return $q->getQuery()->getSingleScalarResult();
-        } catch (Exception $exception) {
+        } catch (NoResultException | NonUniqueResultException $exception) {
             return null;
         }
     }

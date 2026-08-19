@@ -22,10 +22,13 @@ namespace OrangeHRM\Help\Processor;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use OrangeHRM\Core\Traits\LoggerTrait;
 use OrangeHRM\Help\Service\HelpConfigService;
 
 class ZendeskHelpProcessor implements HelpProcessor
 {
+    use LoggerTrait;
+
     public const DEFAULT_CONTENT_TYPE = "application/json";
     public const ZENDESK_SEARCH_URL = '/api/v2/help_center/articles/search.json?';
     public const ZENDESK_DEFAULT_URL_PATH = '/hc/en-us';
@@ -74,10 +77,16 @@ class ZendeskHelpProcessor implements HelpProcessor
 
         $results = $this->sendQuery($searchUrl);
         if (isset($results['response'])) {
-            $response = json_decode($results['response'], true);
-            $count = $response['count'];
+            $response = json_decode((string)$results['response'], true);
+            if (!is_array($response)) {
+                $this->getLogger()->error(
+                    'Unexpected help search response from Zendesk: ' . json_last_error_msg()
+                );
+                return $redirectUrl;
+            }
+            $count = $response['count'] ?? 0;
             if (($count >= 1) && ($results['responseCode'] == 200)) {
-                $redirectUrl = $response['results'][0]['html_url'];
+                $redirectUrl = $response['results'][0]['html_url'] ?? $redirectUrl;
             }
         }
 
@@ -104,6 +113,8 @@ class ZendeskHelpProcessor implements HelpProcessor
             $responseCode = $response->getStatusCode();
             return ['responseCode' => $responseCode, 'response' => $body];
         } catch (Exception $e) {
+            $this->getLogger()->error('Help search request to Zendesk failed: ' . $e->getMessage());
+            $this->getLogger()->error($e->getTraceAsString());
             return null;
         }
     }

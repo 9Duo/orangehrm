@@ -21,6 +21,7 @@ namespace OrangeHRM\WorkspaceNotifications\Service;
 
 use DateTime;
 use DateTimeZone;
+use OrangeHRM\Core\Traits\LoggerTrait;
 use OrangeHRM\Entity\WorkspaceNotificationLog;
 use OrangeHRM\Entity\WorkspaceNotificationRegistration;
 use OrangeHRM\WorkspaceNotifications\Dao\WorkspaceNotificationLogDao;
@@ -38,6 +39,7 @@ class WorkspaceNotificationService
     use WorkspaceNotificationSettingsServiceTrait;
     use WorkspaceNotificationRegistrationServiceTrait;
     use WebhookProviderRegistryTrait;
+    use LoggerTrait;
 
     private const SEND_WINDOW_MINUTES = 5;
 
@@ -79,6 +81,7 @@ class WorkspaceNotificationService
 
         foreach ($this->getWorkspaceNotificationRegistrationService()->listActiveRegistrations() as $registration) {
             $id = $registration->getId();
+            $today = null;
 
             try {
                 $tz = $this->resolveTimezone($registration->getTimezone());
@@ -109,6 +112,10 @@ class WorkspaceNotificationService
                     'recipientCount' => 0,
                     'error' => $e->getMessage(),
                 ];
+                $this->getLogger()->error(
+                    sprintf('Workspace notification dispatch failed for registration %s: %s', $id ?? 'unsaved', $e->getMessage())
+                );
+                $this->getLogger()->error($e->getTraceAsString());
                 $this->writeFailureLog($registration, $today, $e->getMessage());
             }
         }
@@ -174,6 +181,9 @@ class WorkspaceNotificationService
         try {
             return new DateTimeZone($name);
         } catch (Throwable $e) {
+            $this->getLogger()->warning(
+                sprintf('Unknown workspace notification timezone "%s", falling back to UTC: %s', $name, $e->getMessage())
+            );
             return new DateTimeZone('UTC');
         }
     }
@@ -299,7 +309,18 @@ class WorkspaceNotificationService
         try {
             $log = $this->getWorkspaceNotificationLogDao()->makeLogFor($registration, $today, WorkspaceNotificationLog::STATUS_FAILED, 0, $message);
             $this->getWorkspaceNotificationLogDao()->recordLog($log);
-        } catch (Throwable $ignored) {
+        } catch (Throwable $e) {
+            // The delivery failure itself is already reported to the caller; make sure the
+            // secondary failure to persist the audit row isn't lost entirely.
+            $this->getLogger()->error(
+                sprintf(
+                    'Failed to persist FAILED workspace notification log for registration %s (%s): %s',
+                    $registration->getId() ?? 'unsaved',
+                    $message,
+                    $e->getMessage()
+                )
+            );
+            $this->getLogger()->error($e->getTraceAsString());
         }
     }
 

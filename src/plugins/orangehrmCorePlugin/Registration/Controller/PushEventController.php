@@ -22,6 +22,7 @@ namespace OrangeHRM\Core\Registration\Controller;
 use OrangeHRM\Core\Controller\AbstractController;
 use OrangeHRM\Core\Registration\Processor\RegistrationEventProcessorFactory;
 use OrangeHRM\Core\Traits\CacheTrait;
+use OrangeHRM\Core\Traits\LoggerTrait;
 use OrangeHRM\Entity\RegistrationEventQueue;
 use OrangeHRM\Framework\Http\Response;
 use Throwable;
@@ -29,6 +30,14 @@ use Throwable;
 class PushEventController extends AbstractController
 {
     use CacheTrait;
+    use LoggerTrait;
+
+    /**
+     * Retry window used when publishing failed, so a transient failure isn't
+     * suppressed for the whole successful-run interval.
+     */
+    private const SUCCESS_TTL = 3600;
+    private const FAILURE_TTL = 300;
 
     /**
      * @return Response
@@ -46,10 +55,14 @@ class PushEventController extends AbstractController
                 RegistrationEventQueue::ACTIVE_EMPLOYEE_COUNT
             );
             $registrationEventProcessor->publishRegistrationEvents();
+            $ttl = self::SUCCESS_TTL;
         } catch (Throwable $e) {
+            $this->getLogger()->error('Failed to publish registration events: ' . $e->getMessage());
+            $this->getLogger()->error($e->getTraceAsString());
+            $ttl = self::FAILURE_TTL;
         }
 
-        $cacheItem->expiresAfter(3600);
+        $cacheItem->expiresAfter($ttl);
         $cacheItem->set(true);
         $this->getCache()->save($cacheItem);
         return $this->getResponse();

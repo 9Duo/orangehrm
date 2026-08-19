@@ -27,6 +27,7 @@ use OrangeHRM\Core\Authorization\Service\ScreenPermissionService;
 use OrangeHRM\Core\Dto\AttributeBag;
 use OrangeHRM\Core\Exception\ServiceException;
 use OrangeHRM\Core\Traits\Auth\AuthUserTrait;
+use OrangeHRM\Core\Traits\LoggerTrait;
 use OrangeHRM\Core\Traits\ModuleScreenHelperTrait;
 use OrangeHRM\Core\Traits\Service\MenuServiceTrait;
 use OrangeHRM\Core\Vue\Component;
@@ -45,6 +46,7 @@ class VueControllerHelper
     use ThemeServiceTrait;
     use LocalizationServiceTrait;
     use AuthUserTrait;
+    use LoggerTrait;
 
     public const COMPONENT_NAME = 'componentName';
     public const COMPONENT_PROPS = 'componentProps';
@@ -232,6 +234,8 @@ class VueControllerHelper
         try {
             return $this->getMenuService()->getMenuItems($this->getRequest()->getBaseUrl());
         } catch (ServiceException $e) {
+            $this->getLogger()->error('Failed to resolve menu items: ' . $e->getMessage());
+            $this->getLogger()->error($e->getTraceAsString());
         }
         return [[], []];
     }
